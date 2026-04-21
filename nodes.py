@@ -12,6 +12,7 @@ from .prompt_relay import (
 
 from .patches import detect_model_type, apply_patches
 from .segments import PromptRelaySegment, PromptRelayCompose
+from .segments_ltx import PromptRelayComposeLTX, LTXVLatentChainInit
 
 log = logging.getLogger(__name__)
 
@@ -103,10 +104,14 @@ NODE_CLASS_MAPPINGS = {
     "PromptRelayEncode": PromptRelayEncode,
     "PromptRelaySegment": PromptRelaySegment,
     "PromptRelayCompose": PromptRelayCompose,
+    "PromptRelayComposeLTX": PromptRelayComposeLTX,
+    "LTXVLatentChainInit": LTXVLatentChainInit,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
     "PromptRelayEncode": "Prompt Relay Encode",
     "PromptRelaySegment": "Prompt Relay Segment",
     "PromptRelayCompose": "Prompt Relay Compose",
+    "PromptRelayComposeLTX": "Prompt Relay Compose (LTX)",
+    "LTXVLatentChainInit": "LTXV Latent Chain Init",
 }

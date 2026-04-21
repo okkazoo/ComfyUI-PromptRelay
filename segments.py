@@ -42,6 +42,16 @@ class PromptRelaySegment(io.ComfyNode):
                     tooltip="Length of this segment in frames (used when the compose "
                             "node produces video; ignored for still-image sampling).",
                 ),
+                io.Int.Input(
+                    "blend_in_frames",
+                    default=0,
+                    min=0,
+                    max=999,
+                    tooltip="Overlap with prior segment, in pixel frames. 0 = hard cut. "
+                            "Positive = the prior segment's trailing frames blend into "
+                            "this one via a noise-mask ramp (LTX compose only; ignored "
+                            "by the SD compose node). Ignored on segment 0.",
+                ),
             ],
             outputs=[
                 Segment.Output("segment"),
@@ -49,8 +59,12 @@ class PromptRelaySegment(io.ComfyNode):
         )
 
     @classmethod
-    def execute(cls, prompt: str, frames: int) -> io.NodeOutput:
-        return io.NodeOutput({"prompt": prompt, "frames": int(frames)})
+    def execute(cls, prompt: str, frames: int, blend_in_frames: int) -> io.NodeOutput:
+        return io.NodeOutput({
+            "prompt": prompt,
+            "frames": int(frames),
+            "blend_in_frames": int(blend_in_frames),
+        })
 
 
 class PromptRelayCompose(io.ComfyNode):
