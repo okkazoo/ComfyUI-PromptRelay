@@ -11,7 +11,7 @@ from .prompt_relay import (
 )
 
 from .patches import detect_model_type, apply_patches
-from .autogrow_test import PromptRelayAutogrowTest
+from .segments import PromptRelaySegment, PromptRelayCompose
 
 log = logging.getLogger(__name__)
 
@@ -101,10 +101,12 @@ class PromptRelayEncode(io.ComfyNode):
 
 NODE_CLASS_MAPPINGS = {
     "PromptRelayEncode": PromptRelayEncode,
-    "PromptRelayAutogrowTest": PromptRelayAutogrowTest,
+    "PromptRelaySegment": PromptRelaySegment,
+    "PromptRelayCompose": PromptRelayCompose,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
     "PromptRelayEncode": "Prompt Relay Encode",
-    "PromptRelayAutogrowTest": "Prompt Relay Autogrow Test",
+    "PromptRelaySegment": "Prompt Relay Segment",
+    "PromptRelayCompose": "Prompt Relay Compose",
 }
