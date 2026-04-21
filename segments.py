@@ -80,10 +80,15 @@ class PromptRelayCompose(io.ComfyNode):
             ),
             enable_expand=True,
             inputs=[
-                io.Model.Input("model"),
-                io.Clip.Input("clip"),
-                io.Vae.Input("vae"),
-                io.Conditioning.Input("negative"),
+                # raw_link=True so these arrive as graph links rather than
+                # resolved Python objects. Required for expansion caching:
+                # an Unhashable input anywhere in a subnode's signature
+                # disables caching for that subnode entirely
+                # (comfy_execution/caching.py, to_hashable()).
+                io.Model.Input("model", raw_link=True),
+                io.Clip.Input("clip", raw_link=True),
+                io.Vae.Input("vae", raw_link=True),
+                io.Conditioning.Input("negative", raw_link=True),
                 io.Autogrow.Input("segments", template=template),
                 io.Int.Input("seed", default=0, min=0, max=0xffffffffffffffff),
                 io.Int.Input("steps", default=20, min=1, max=200),
